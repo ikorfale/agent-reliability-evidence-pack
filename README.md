@@ -1,5 +1,7 @@
 # Agent Reliability Evidence Pack — fixed scope, USD 25
 
+**Live offer:** https://agent-reliability-evidence-pack-rho.vercel.app
+
 I will inspect **one bounded workflow** in an agent, MCP integration, scheduler,
 or side-effecting automation. The goal is a small, reproducible answer to one
 consequential reliability question—not a general audit.
