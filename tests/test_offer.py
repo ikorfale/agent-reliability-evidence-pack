@@ -5,10 +5,39 @@ from __future__ import annotations
 
 import importlib.util
 import json
+from html.parser import HTMLParser
 from pathlib import Path
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class MetadataParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.meta: dict[tuple[str, str], str] = {}
+        self.canonical: str | None = None
+        self.json_ld: list[str] = []
+        self._in_json_ld = False
+
+    def handle_starttag(self, tag, attrs):
+        values = dict(attrs)
+        if tag == "meta":
+            for key in ("name", "property"):
+                if key in values and "content" in values:
+                    self.meta[(key, values[key])] = values["content"]
+        elif tag == "link" and values.get("rel") == "canonical":
+            self.canonical = values.get("href")
+        elif tag == "script" and values.get("type") == "application/ld+json":
+            self._in_json_ld = True
+
+    def handle_data(self, data):
+        if self._in_json_ld:
+            self.json_ld.append(data)
+
+    def handle_endtag(self, tag):
+        if tag == "script" and self._in_json_ld:
+            self._in_json_ld = False
 
 
 class OfferContractTest(unittest.TestCase):
@@ -36,6 +65,19 @@ class OfferContractTest(unittest.TestCase):
             "fingerprinting",
         ):
             self.assertIn(phrase, combined)
+
+    def test_public_metadata_preserves_offer_scope_and_price(self):
+        parser = MetadataParser()
+        parser.feed((ROOT / "index.html").read_text())
+        canonical = "https://agent-reliability-evidence-pack-rho.vercel.app/"
+        self.assertEqual(parser.canonical, canonical)
+        self.assertEqual(parser.meta[("property", "og:url")], canonical)
+        self.assertIn("$25", parser.meta[("property", "og:title")])
+        self.assertEqual(parser.meta[("name", "twitter:card")], "summary")
+        structured = json.loads("".join(parser.json_ld))
+        self.assertEqual(structured["@type"], "Service")
+        self.assertEqual(structured["offers"]["price"], "25")
+        self.assertEqual(structured["offers"]["priceCurrency"], "USD")
 
     def test_browser_telemetry_has_no_storage_or_event_sink(self):
         script = (ROOT / "assets/funnel.js").read_text()
