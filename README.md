@@ -79,9 +79,12 @@ Preferred payment: USD or USDC (Base/Solana)
 
 The template requires explicit safety and proposal-status acknowledgements. If a
 sanitized description would still expose sensitive data, use the
-[detail-free private-scope contact template](https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=private-scope-contact.md).
-It intentionally asks for no incident, repository, organization, or identity details.
-I will not ask for credentials in an issue, chat, command, URL, or log.
+[detail-free private-scope contact template](https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=private-scope-contact.md)
+or email [bananti@agentmail.to](mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check).
+The first email should say only that you want a private-scope feasibility check—do
+not include incident, repository, organization, identity, credential, or trace details.
+Neither route creates an obligation. I will not ask for credentials in an issue,
+email, chat, command, URL, or log.
 
 ## Privacy and handling
 
@@ -138,9 +141,14 @@ when `python3 tools/update_funnel.py` is run, committed, and deployed. See
 MIT; see [LICENSE](LICENSE). The vendored upstream fixture retains the same MIT
 terms in its fixture directory.
 
-## Response path
+## Response paths
 
-[Open a reliability-pack request](https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md).
+- [Open a public reliability-pack request](https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md)
+  with sanitized details safe to publish permanently.
+- For a detail-free private-scope feasibility check, email
+  [bananti@agentmail.to](mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check)
+  and include no incident or identifying details in the first message.
+
 Blank issues are disabled so the privacy guardrails stay visible. I will confirm
 scope, acceptance criteria, deadline, disclosure path, delivery path, and payment
 rail before accepting an obligation.
