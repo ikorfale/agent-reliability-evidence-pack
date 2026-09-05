@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-05T04:05:25Z",
+  "repository": "ikorfale/agent-reliability-evidence-pack",
+  "source": "GitHub public issueCount by label",
+  "excludedLabel": "telemetry-test",
+  "counts": {
+    "requests": 0,
+    "scopesAccepted": 0,
+    "delivered": 0
+  }
+}

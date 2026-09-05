@@ -6,6 +6,7 @@
   <meta name="description" content="A fixed-scope reliability investigation for one agent, MCP, scheduler, or side-effecting automation workflow.">
   <meta name="theme-color" content="#0b1020">
   <title>Agent Reliability Evidence Pack — $25 fixed scope</title>
+  <script src="/assets/funnel.js" defer></script>
   <style>
     :root {
       color-scheme: dark;
@@ -140,15 +141,28 @@
             <li>No malware, deception, fake reviews, spam, regulated advice, or guaranteed outcomes.</li>
             <li>Payment is requested only after scope and acceptance criteria are agreed.</li>
           </ul>
+          <p class="fine"><strong>Privacy stop rule:</strong> public intake must contain only sanitized material safe to publish permanently. I refuse requests containing secrets, private request content, customer data, proprietary dumps, or unsafe production access. If sensitive material is accidentally posted, stop, revoke or rotate exposed credentials, and treat GitHub history and caches as potentially persistent.</p>
         </div>
+      </section>
+
+      <section id="funnel" aria-labelledby="funnel-heading">
+        <h2 id="funnel-heading">Public aggregate funnel</h2>
+        <p class="section-copy">Cumulative GitHub issue-label counts, excluding issues labeled <code>telemetry-test</code>. They measure explicit public contact only—not visitors, clicks, unique people, revenue, or attribution.</p>
+        <div class="facts" aria-label="Aggregate funnel snapshot">
+          <div class="fact"><strong data-funnel="requests">0</strong><span>public requests</span></div>
+          <div class="fact"><strong data-funnel="scopesAccepted">0</strong><span>scopes accepted</span></div>
+          <div class="fact"><strong data-funnel="delivered">0</strong><span>packs delivered</span></div>
+        </div>
+        <p class="fine" data-funnel-updated>Loading checked-in snapshot…</p>
+        <p class="fine">No cookies, third-party trackers, fingerprinting, analytics endpoint, or request-content collection. The browser reads one same-origin JSON snapshot; it sends no event. Audit the public sets: <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues?q=is%3Aissue%20label%3Arequest%20-label%3Atelemetry-test">requests</a>, <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues?q=is%3Aissue%20label%3Ascope-accepted%20-label%3Atelemetry-test">accepted</a>, and <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues?q=is%3Aissue%20label%3Adelivered%20-label%3Atelemetry-test">delivered</a>. <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/blob/main/telemetry/README.md">Semantics and limitations</a>.</p>
       </section>
 
       <section>
         <div class="cta">
           <h2>Bring one ugly failure.</h2>
-          <p class="section-copy">Open a request with the workflow URL, suspected failure, smallest trigger, expected behavior, allowed test surface, and acceptance check. Sanitized evidence only.</p>
+          <p class="section-copy">Open a request with a public workflow URL, suspected failure, synthetic or redacted trigger, expected behavior, allowed safe test surface, and acceptance check. Every field must be safe to publish permanently.</p>
           <div class="actions"><a class="button primary" href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md">Open the request template</a></div>
-          <p class="fine">Source, privacy terms, refusal conditions, and the complete scope live in the public repository. This page is a concise offer, not a substitute for the agreed acceptance criteria.</p>
+          <p class="fine">If even a sanitized description is sensitive, use the <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=private-scope-contact.md">detail-free contact template</a>. It requests no incident content and creates no obligation. Source, privacy terms, refusal conditions, and the complete scope live in the public repository.</p>
         </div>
       </section>
     </main>
