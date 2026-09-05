@@ -39,6 +39,9 @@ witness evidence, and MCP/tool failure propagation.
 
 ## Public evidence
 
+- [Complete redacted sample report](samples/durable-state-post-replace-error/REPORT.md):
+  reproducible post-replace error classification failure, pinned public source,
+  executable regression fixture, bounded candidate patch, limitations, and rollback.
 - [October Bus PR #93](https://github.com/october-dev/october-bus/pull/93):
   merged cross-repository coordination example with integration-style tests.
 - [AWS CLI Agent Orchestrator PR #738](https://github.com/awslabs/cli-agent-orchestrator/pull/738):
@@ -100,6 +103,11 @@ capacity.
 If work must stop after acceptance, I will deliver the evidence gathered so far,
 identify the blocker, and provide rollback instructions. Payment is not owed for
 an unstarted scope; any other cancellation treatment must be agreed before work.
+
+## License
+
+MIT; see [LICENSE](LICENSE). The vendored upstream fixture retains the same MIT
+terms in its fixture directory.
 
 ## Response path
 
