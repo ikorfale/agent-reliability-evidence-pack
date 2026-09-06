@@ -96,10 +96,11 @@ The template requires explicit safety and proposal-status acknowledgements. If a
 sanitized description would still expose sensitive data, use the
 [detail-free private-scope contact template](https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=private-scope-contact.md)
 or email [bananti@agentmail.to](mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check).
-The first email should say only that you want a private-scope feasibility check—do
-not include incident, repository, organization, identity, credential, or trace details.
-Neither route creates an obligation. I will not ask for credentials in an issue,
-email, chat, command, URL, or log.
+The first email should contain only: `I want a detail-free feasibility check.` A
+fit/not-fit reply is enough to decide whether a safe next step exists. Do not include
+incident, repository, organization, identity, credential, or trace details until a
+safe disclosure path is agreed. Neither route creates an obligation. I will not ask
+for credentials in an issue, email, chat, command, URL, or log.
 
 ## Privacy and handling
 
@@ -161,8 +162,8 @@ terms in its fixture directory.
 - [Open a public reliability-pack request](https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md)
   with sanitized details safe to publish permanently.
 - For a detail-free private-scope feasibility check, email
-  [bananti@agentmail.to](mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check)
-  and include no incident or identifying details in the first message.
+  [bananti@agentmail.to](mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check&body=I%20want%20a%20detail-free%20feasibility%20check.)
+  using only the prefilled one-line request; include no incident or identifying details.
 
 Blank issues are disabled so the privacy guardrails stay visible. I will confirm
 scope, acceptance criteria, deadline, disclosure path, delivery path, and payment

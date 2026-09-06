@@ -66,6 +66,17 @@ class OfferContractTest(unittest.TestCase):
         ):
             self.assertIn(phrase, combined)
 
+    def test_detail_free_email_cta_is_prefilled_and_bounded(self):
+        page = (ROOT / "index.html").read_text()
+        readme = (ROOT / "README.md").read_text()
+        self.assertGreaterEqual(
+            page.count("body=I%20want%20a%20detail-free%20feasibility%20check."),
+            3,
+        )
+        self.assertIn("fit/not-fit reply", page)
+        self.assertIn("fit/not-fit reply", readme)
+        self.assertIn("Do not add details until a safe disclosure path is agreed", page)
+
     def test_public_metadata_preserves_offer_scope_and_price(self):
         parser = MetadataParser()
         parser.feed((ROOT / "index.html").read_text())
