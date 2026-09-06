@@ -34,6 +34,7 @@
   }
   </script>
   <script src="/assets/funnel.js" defer></script>
+  <script src="/assets/fit-check.js" defer></script>
   <style>
     :root {
       color-scheme: dark;
@@ -86,6 +87,11 @@
     .card h3 { margin: 0 0 .45rem; font-size: 1.08rem; }
     .card p, .card li { color: var(--muted); }
     .card ul { margin: .5rem 0 0; padding-left: 1.2rem; }
+    .fit-check { display: grid; gap: .85rem; margin-top: 1.25rem; }
+    .fit-check label { display: flex; gap: .7rem; align-items: flex-start; color: var(--muted); }
+    .fit-check input { width: 1.15rem; height: 1.15rem; margin-top: .25rem; accent-color: var(--green); }
+    .fit-result { min-height: 1.7rem; margin: .15rem 0 0; color: var(--amber); font-weight: 700; }
+    .fit-result[data-ready="true"] { color: var(--green); }
     .step { display: grid; grid-template-columns: 2.2rem 1fr; gap: .8rem; align-items: start; }
     .num { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: rgba(116,240,167,.13); color: var(--green); font-weight: 850; }
     .evidence { display: grid; gap: .75rem; margin-top: 1.25rem; }
@@ -145,6 +151,16 @@
           <article class="card"><h3>Not this pack</h3><ul><li>A general security or architecture audit.</li><li>Production troubleshooting or open-ended support.</li><li>“Make the agent reliable” without a testable boundary.</li></ul></article>
         </div>
         <p class="fine"><strong>Acceptance-check shape:</strong> Given [pinned version/input], when [bounded trigger], then [single observable result]. Example: two overlapping scheduler runs must record exactly one external effect.</p>
+        <form class="card fit-check" data-fit-check>
+          <h3>60-second private fit check</h3>
+          <p class="fine">This runs only in your browser. It sends, stores, and records nothing.</p>
+          <label><input type="checkbox" name="inspectable"> I can provide a public repository or minimal synthetic reproducer.</label>
+          <label><input type="checkbox" name="boundary"> I can name one consequential failure boundary and a pinned trigger.</label>
+          <label><input type="checkbox" name="observable"> I can state one executable assertion or observable outcome.</label>
+          <button class="button" type="submit">Check fixed-scope fit</button>
+          <p class="fit-result" data-fit-result role="status" aria-live="polite">Select all three statements to check fit.</p>
+          <p class="fine" data-fit-next hidden>Likely a fit for the $25 pack. Continue with the <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md">sanitized public request</a>, or use the <a href="mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check&amp;body=I%20want%20a%20detail-free%20feasibility%20check.%0A%0AI%20have%20not%20included%20incident%2C%20repository%2C%20organization%2C%20credential%2C%20or%20trace%20details.">detail-free email route</a>.</p>
+        </form>
       </section>
 
       <section aria-labelledby="process">

@@ -104,6 +104,26 @@ class OfferContractTest(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, script)
 
+    def test_fit_check_is_local_only_and_routes_to_existing_offer(self):
+        page = (ROOT / "index.html").read_text()
+        script = (ROOT / "assets/fit-check.js").read_text()
+        self.assertIn("60-second private fit check", page)
+        self.assertIn("sends, stores, and records nothing", page)
+        self.assertEqual(page.count('name="inspectable"'), 1)
+        self.assertEqual(page.count('name="boundary"'), 1)
+        self.assertEqual(page.count('name="observable"'), 1)
+        self.assertIn("event.preventDefault()", script)
+        self.assertIn("Likely fixed-scope fit", script)
+        for forbidden in (
+            "fetch(",
+            "XMLHttpRequest",
+            "sendBeacon",
+            "document.cookie",
+            "localStorage",
+            "sessionStorage",
+        ):
+            self.assertNotIn(forbidden, script)
+
     def test_telemetry_snapshot_has_only_aggregate_fields(self):
         snapshot = json.loads((ROOT / "telemetry/funnel.json").read_text())
         self.assertEqual(
