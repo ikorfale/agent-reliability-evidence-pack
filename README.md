@@ -22,6 +22,19 @@ Typical questions include duplicate external effects after retry, lost state
 around a crash boundary, scheduler catch-up/overlap behavior, stale or missing
 witness evidence, and MCP/tool failure propagation.
 
+## Is this a fit?
+
+A request is ready to scope when all three are true:
+
+- there is one public workflow/repository or a minimal synthetic reproducer;
+- the question names one consequential boundary and an expected result; and
+- success can be checked with one executable assertion or observable outcome.
+
+For example: “On version X, two overlapping scheduler runs must produce one
+external effect; the fixture passes when the recorded effect count is exactly
+one.” A general security audit, production troubleshooting, architecture review,
+or “make the agent reliable” is not this fixed-price pack.
+
 ## Price and delivery boundary
 
 - **Price:** USD 25, or 25 USDC on Base or Solana.
@@ -77,6 +90,8 @@ Desired deadline (UTC):
 Preferred payment: USD or USDC (Base/Solana)
 ```
 
+If you are unsure how to state the acceptance check, use this shape:
+`Given [pinned version/input], when [bounded trigger], then [single observable result].`
 The template requires explicit safety and proposal-status acknowledgements. If a
 sanitized description would still expose sensitive data, use the
 [detail-free private-scope contact template](https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=private-scope-contact.md)

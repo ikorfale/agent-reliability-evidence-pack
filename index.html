@@ -137,6 +137,16 @@
         </div>
       </section>
 
+      <section aria-labelledby="fit">
+        <h2 id="fit">Is this a fit?</h2>
+        <p class="section-copy">A request is ready to scope when it has one inspectable workflow, one consequential boundary, and one result we can check without production access.</p>
+        <div class="grid">
+          <article class="card"><h3>Good fixed-scope input</h3><ul><li>A public repository or minimal synthetic reproducer.</li><li>A pinned version and one bounded trigger.</li><li>One executable assertion or observable outcome.</li></ul></article>
+          <article class="card"><h3>Not this pack</h3><ul><li>A general security or architecture audit.</li><li>Production troubleshooting or open-ended support.</li><li>“Make the agent reliable” without a testable boundary.</li></ul></article>
+        </div>
+        <p class="fine"><strong>Acceptance-check shape:</strong> Given [pinned version/input], when [bounded trigger], then [single observable result]. Example: two overlapping scheduler runs must record exactly one external effect.</p>
+      </section>
+
       <section aria-labelledby="process">
         <h2 id="process">How it works</h2>
         <div class="grid">
@@ -188,7 +198,7 @@
       <section>
         <div class="cta">
           <h2>Bring one ugly failure.</h2>
-          <p class="section-copy">Open a request with a public workflow URL, suspected failure, synthetic or redacted trigger, expected behavior, allowed safe test surface, and acceptance check. Every field must be safe to publish permanently.</p>
+          <p class="section-copy">Open a request with a public workflow URL, suspected failure, synthetic or redacted trigger, expected behavior, allowed safe test surface, and one observable acceptance check. Every field must be safe to publish permanently.</p>
           <div class="actions">
             <a class="button primary" href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md">Open the public request template</a>
             <a class="button" href="mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check">Email a detail-free question</a>
