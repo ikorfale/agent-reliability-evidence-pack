@@ -75,6 +75,8 @@ class OfferContractTest(unittest.TestCase):
         )
         self.assertIn("fit/not-fit reply", page)
         self.assertIn("fit/not-fit reply", readme)
+        self.assertIn("fit/not-fit reply within 1 UTC day", page)
+        self.assertIn("fit/not-fit reply within 1 UTC", readme)
         self.assertIn("Do not add details until a safe disclosure path is agreed", page)
 
     def test_public_metadata_preserves_offer_scope_and_price(self):
