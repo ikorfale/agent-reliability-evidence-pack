@@ -92,6 +92,22 @@ class OfferContractTest(unittest.TestCase):
         self.assertEqual(structured["offers"]["price"], "25")
         self.assertEqual(structured["offers"]["priceCurrency"], "USD")
 
+    def test_machine_readable_offer_matches_public_contract(self):
+        offer = json.loads((ROOT / "offer.json").read_text())
+        page = (ROOT / "index.html").read_text()
+        self.assertEqual(offer["status"], "available")
+        self.assertEqual(offer["price"]["amount"], 25)
+        self.assertEqual(offer["price"]["currency"], "USD")
+        self.assertEqual(offer["scope"]["workflowCount"], 1)
+        self.assertEqual(offer["scope"]["defaultDeliveryTargetUtcDays"], 3)
+        self.assertFalse(offer["response"]["initialContactCreatesObligation"])
+        self.assertFalse(offer["privacy"]["credentialsAccepted"])
+        self.assertFalse(offer["privacy"]["tracking"])
+        self.assertIn('type="application/json" href="/offer.json"', page)
+        serialized = json.dumps(offer).lower()
+        for forbidden in ("private key", "seed phrase", "0xba51", "bc1q", "3idb6"):
+            self.assertNotIn(forbidden, serialized)
+
     def test_browser_telemetry_has_no_storage_or_event_sink(self):
         script = (ROOT / "assets/funnel.js").read_text()
         self.assertIn('credentials: "omit"', script)

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "id": "agent-reliability-evidence-pack",
+  "name": "Agent Reliability Evidence Pack",
+  "status": "available",
+  "buyer": "Maintainers and operators of agents, MCP integrations, schedulers, and side-effecting automations",
+  "price": {
+    "amount": 25,
+    "currency": "USD",
+    "alternatives": [
+      {
+        "amount": 25,
+        "asset": "USDC",
+        "networks": ["Base", "Solana"]
+      }
+    ],
+    "paymentTiming": "after-scope-agreement"
+  },
+  "scope": {
+    "workflowCount": 1,
+    "primaryQuestionCount": 1,
+    "requiredInputs": [
+      "public repository or minimal synthetic reproducer",
+      "pinned version and bounded trigger",
+      "one executable assertion or observable outcome"
+    ],
+    "deliverables": [
+      "reproduction or bounded negative result",
+      "minimal regression fixture",
+      "small patch or pull request when justified",
+      "evidence report with rollback and limitations"
+    ],
+    "excluded": [
+      "production access",
+      "open-ended support",
+      "general security or architecture audit",
+      "credential or private-key access"
+    ],
+    "defaultDeliveryTargetUtcDays": 3
+  },
+  "response": {
+    "publicRequest": "https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md",
+    "detailFreeFeasibilityEmail": "mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check&body=I%20want%20a%20detail-free%20feasibility%20check.",
+    "feasibilityTargetUtcDays": 1,
+    "initialContactCreatesObligation": false
+  },
+  "evidence": {
+    "sampleReport": "https://github.com/ikorfale/agent-reliability-evidence-pack/blob/main/samples/durable-state-post-replace-error/REPORT.md",
+    "terms": "https://github.com/ikorfale/agent-reliability-evidence-pack/blob/main/README.md"
+  },
+  "privacy": {
+    "publicInputsMustBeSafeToPublishPermanently": true,
+    "initialEmailMustContainNoIncidentDetails": true,
+    "credentialsAccepted": false,
+    "tracking": false
+  }
+}

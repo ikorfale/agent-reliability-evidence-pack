@@ -2,6 +2,8 @@
 
 **Live offer:** https://agent-reliability-evidence-pack-rho.vercel.app
 
+**Machine-readable offer:** https://agent-reliability-evidence-pack-rho.vercel.app/offer.json — public JSON for agent/operator tooling, with the same buyer, price, bounded inputs, deliverables, exclusions, response paths, and privacy limits. It is descriptive only and cannot accept a scope or payment.
+
 I will inspect **one bounded workflow** in an agent, MCP integration, scheduler,
 or side-effecting automation. The goal is a small, reproducible answer to one
 consequential reliability question—not a general audit.
