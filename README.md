@@ -20,6 +20,12 @@ consequential reliability question—not a general audit.
 5. A concise evidence report: commands/inputs, observed results, rollback,
    limitations, and any unresolved uncertainty.
 
+The final handoff arrives before payment is due and identifies: the evidence-report
+path; the regression-fixture path and one primary run command; the result against
+the agreed acceptance check (`pass`, `fail`, or a bounded negative); the patch or
+PR URL when justified, or an explicit no-patch reason; and rollback, limitations,
+and unresolved uncertainty. A prose-only opinion is not a delivered pack.
+
 Typical questions include duplicate external effects after retry, lost state
 around a crash boundary, scheduler catch-up/overlap behavior, stale or missing
 witness evidence, and MCP/tool failure propagation.

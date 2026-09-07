@@ -42,7 +42,20 @@
       "general security or architecture audit",
       "credential or private-key access"
     ],
-    "defaultDeliveryTargetUtcDays": 3
+    "defaultDeliveryTargetUtcDays": 3,
+    "deliveryHandoff": {
+      "beforePayment": true,
+      "requiredFields": [
+        "evidence report path",
+        "regression fixture path",
+        "primary run command",
+        "result against agreed acceptance check",
+        "patch or pull request URL when justified, otherwise no-patch reason",
+        "rollback",
+        "limitations and unresolved uncertainty"
+      ],
+      "proseOnlyOpinionCountsAsDelivered": false
+    }
   },
   "response": {
     "publicRequest": "https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md",
