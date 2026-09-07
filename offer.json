@@ -30,6 +30,10 @@
       "small patch or pull request when justified",
       "evidence report with rollback and limitations"
     ],
+    "exampleAcceptanceChecks": [
+      "after a synthetic non-idempotent action completes and its response is dropped, record whether retry can produce a duplicate effect",
+      "when two controlled runs of one pinned workflow overlap, record exactly one downstream effect or identify the tested duplication condition"
+    ],
     "excluded": [
       "production access",
       "open-ended support",
