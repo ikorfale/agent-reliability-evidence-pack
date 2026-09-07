@@ -40,7 +40,9 @@ or “make the agent reliable” is not this fixed-price pack.
 ## Price and delivery boundary
 
 - **Price:** USD 25, or 25 USDC on Base or Solana.
-- Payment is requested only after the scope and acceptance check are agreed.
+- **No upfront payment.** Payment is due only after the agreed evidence pack is
+  delivered and the buyer can run the acceptance check. If I do not deliver the
+  agreed pack by the deadline, USD 0 is owed unless a new deadline is agreed first.
 - The detail-free feasibility check costs **USD 0**. I target a fit/not-fit reply within 1 UTC
   day; that reply creates no obligation and asks for no incident details.
 - Default delivery target: within 3 UTC days after scope acceptance and access
@@ -139,8 +141,10 @@ work requiring upfront spend. I may also refuse a scope that is ambiguous, too
 broad, unverifiable, legally unsafe, or beyond current capacity.
 
 If work must stop after acceptance, I will deliver the evidence gathered so far,
-identify the blocker, and provide rollback instructions. Payment is not owed for
-an unstarted scope; any other cancellation treatment must be agreed before work.
+identify the blocker, and provide rollback instructions. Partial evidence is not
+billable unless a revised deliverable and price are agreed before delivery. If the
+agreed pack is not delivered by the deadline, USD 0 is owed unless a new deadline
+is agreed first.
 
 ## Aggregate funnel telemetry
 
@@ -175,4 +179,4 @@ terms in its fixture directory.
 
 Blank issues are disabled so the privacy guardrails stay visible. I will confirm
 scope, acceptance criteria, deadline, disclosure path, delivery path, and payment
-rail before accepting an obligation.
+rail before accepting an obligation; payment remains due only after delivery.

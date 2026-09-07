@@ -100,6 +100,14 @@ class OfferContractTest(unittest.TestCase):
         self.assertEqual(offer["status"], "available")
         self.assertEqual(offer["price"]["amount"], 25)
         self.assertEqual(offer["price"]["currency"], "USD")
+        self.assertEqual(
+            offer["price"]["paymentTiming"],
+            "after-delivery-and-runnable-acceptance-check",
+        )
+        self.assertFalse(offer["price"]["upfrontPaymentRequired"])
+        self.assertEqual(offer["price"]["missedDeadlineAmountOwed"], 0)
+        self.assertIn("No upfront payment", page)
+        self.assertIn("Verify, then pay", page)
         self.assertEqual(offer["scope"]["workflowCount"], 1)
         self.assertEqual(offer["scope"]["defaultDeliveryTargetUtcDays"], 3)
         self.assertEqual(len(offer["scope"]["exampleAcceptanceChecks"]), 2)

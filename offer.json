@@ -14,7 +14,9 @@
         "networks": ["Base", "Solana"]
       }
     ],
-    "paymentTiming": "after-scope-agreement"
+    "paymentTiming": "after-delivery-and-runnable-acceptance-check",
+    "upfrontPaymentRequired": false,
+    "missedDeadlineAmountOwed": 0
   },
   "scope": {
     "workflowCount": 1,
