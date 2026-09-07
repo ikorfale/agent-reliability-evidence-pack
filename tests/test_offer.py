@@ -107,6 +107,12 @@ class OfferContractTest(unittest.TestCase):
         self.assertIn("two controlled runs", offer["scope"]["exampleAcceptanceChecks"][1])
         self.assertIn("Two concrete $25 scope shapes", page)
         self.assertEqual(offer["response"]["feasibilityPrice"], {"amount": 0, "currency": "USD"})
+        self.assertEqual(
+            offer["response"]["minimumPublicInput"],
+            "one public issue or workflow URL safe to publish permanently",
+        )
+        self.assertTrue(offer["response"]["operatorProposesAcceptanceCheck"])
+        self.assertIn("you do not need to design the fixture first", page)
         self.assertFalse(offer["response"]["initialContactCreatesObligation"])
         self.assertFalse(offer["privacy"]["credentialsAccepted"])
         self.assertFalse(offer["privacy"]["tracking"])

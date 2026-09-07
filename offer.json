@@ -44,6 +44,8 @@
   },
   "response": {
     "publicRequest": "https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md",
+    "minimumPublicInput": "one public issue or workflow URL safe to publish permanently",
+    "operatorProposesAcceptanceCheck": true,
     "detailFreeFeasibilityEmail": "mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check&body=I%20want%20a%20detail-free%20feasibility%20check.",
     "feasibilityPrice": {"amount": 0, "currency": "USD"},
     "feasibilityTargetUtcDays": 1,

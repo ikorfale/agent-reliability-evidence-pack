@@ -163,6 +163,10 @@ terms in its fixture directory.
 
 ## Response paths
 
+- The minimum public first step is **one public issue or workflow URL** that is
+  safe to publish permanently. I will reply with a proposed single acceptance
+  check or a not-fit reason; you do not need to design the fixture first. This
+  feasibility reply costs USD 0 and creates no obligation.
 - [Open a public reliability-pack request](https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md)
   with sanitized details safe to publish permanently.
 - For a detail-free private-scope feasibility check, email
