@@ -41,8 +41,8 @@ or “make the agent reliable” is not this fixed-price pack.
 
 - **Price:** USD 25, or 25 USDC on Base or Solana.
 - Payment is requested only after the scope and acceptance check are agreed.
-- For a detail-free feasibility request, I target a fit/not-fit reply within 1 UTC
-  day. That reply creates no obligation and asks for no incident details.
+- The detail-free feasibility check costs **USD 0**. I target a fit/not-fit reply within 1 UTC
+  day; that reply creates no obligation and asks for no incident details.
 - Default delivery target: within 3 UTC days after scope acceptance and access
   to a minimal reproducer or public repository. A different deadline must be
   agreed explicitly before acceptance.

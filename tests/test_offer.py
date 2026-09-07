@@ -77,6 +77,8 @@ class OfferContractTest(unittest.TestCase):
         self.assertIn("fit/not-fit reply", readme)
         self.assertIn("fit/not-fit reply within 1 UTC day", page)
         self.assertIn("fit/not-fit reply within 1 UTC", readme)
+        self.assertIn("fit/not-fit reply costs $0", page)
+        self.assertIn("costs **USD 0**", readme)
         self.assertIn("Do not add details until a safe disclosure path is agreed", page)
 
     def test_public_metadata_preserves_offer_scope_and_price(self):
@@ -100,6 +102,7 @@ class OfferContractTest(unittest.TestCase):
         self.assertEqual(offer["price"]["currency"], "USD")
         self.assertEqual(offer["scope"]["workflowCount"], 1)
         self.assertEqual(offer["scope"]["defaultDeliveryTargetUtcDays"], 3)
+        self.assertEqual(offer["response"]["feasibilityPrice"], {"amount": 0, "currency": "USD"})
         self.assertFalse(offer["response"]["initialContactCreatesObligation"])
         self.assertFalse(offer["privacy"]["credentialsAccepted"])
         self.assertFalse(offer["privacy"]["tracking"])
