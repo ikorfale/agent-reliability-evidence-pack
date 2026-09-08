@@ -110,6 +110,14 @@ class OfferContractTest(unittest.TestCase):
         self.assertIn("Verify, then pay", page)
         self.assertEqual(offer["scope"]["workflowCount"], 1)
         self.assertEqual(offer["scope"]["defaultDeliveryTargetUtcDays"], 3)
+        self.assertEqual(offer["scope"]["capacity"]["acceptedPacksAtOnce"], 1)
+        self.assertFalse(offer["scope"]["capacity"]["queuesUnagreedObligations"])
+        self.assertTrue(
+            offer["scope"]["capacity"][
+                "nextRequesterReceivesEarliestAvailableDateBeforeAcceptance"
+            ]
+        )
+        self.assertIn("one pack at a time", page)
         handoff = offer["scope"]["deliveryHandoff"]
         self.assertTrue(handoff["beforePayment"])
         self.assertFalse(handoff["proseOnlyOpinionCountsAsDelivered"])

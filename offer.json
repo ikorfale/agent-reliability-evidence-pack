@@ -43,6 +43,11 @@
       "credential or private-key access"
     ],
     "defaultDeliveryTargetUtcDays": 3,
+    "capacity": {
+      "acceptedPacksAtOnce": 1,
+      "queuesUnagreedObligations": false,
+      "nextRequesterReceivesEarliestAvailableDateBeforeAcceptance": true
+    },
     "deliveryHandoff": {
       "beforePayment": true,
       "requiredFields": [

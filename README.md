@@ -54,6 +54,9 @@ or “make the agent reliable” is not this fixed-price pack.
 - Default delivery target: within 3 UTC days after scope acceptance and access
   to a minimal reproducer or public repository. A different deadline must be
   agreed explicitly before acceptance.
+- **Capacity:** one accepted pack at a time. While one is in delivery, I will
+  not accept a second obligation; a new requester gets a fit/not-fit answer and
+  an earliest available date before deciding whether to proceed.
 - One workflow, one primary failure question, and one bounded fixture/fix.
 - No production access, on-call duty, open-ended support, or guarantee that a
   suspected bug exists. If the bug is absent in the declared conditions, the
