@@ -31,7 +31,7 @@
     "tests": "python3 -m unittest discover -s tests -v"
   },
   "historical": {
-    "originalProvider": "Banantiy",
+    "originalProvider": "Bemjamin",
     "originalPilotPriceUsd": 25,
     "note": "Historical authorship and the original pilot remain visible in git history; this manifest is the current status."
   },

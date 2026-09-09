@@ -42,7 +42,7 @@ class OfferContractTest(unittest.TestCase):
         self.assertIsNone(offer["payment"]["address"])
         self.assertEqual(offer["payment"]["intendedNetwork"], "Solana")
         self.assertEqual(offer["payment"]["intendedAssets"], ["USDC", "USDT"])
-        self.assertEqual(offer["historical"]["originalProvider"], "Banantiy")
+        self.assertEqual(offer["historical"]["originalProvider"], "Bemjamin")
         self.assertEqual(offer["historical"]["originalPilotPriceUsd"], 25)
 
     def test_public_page_is_proof_not_checkout(self):
@@ -51,7 +51,7 @@ class OfferContractTest(unittest.TestCase):
         self.assertIn("shipped reference", lowered)
         self.assertIn("payment inactive", lowered)
         self.assertIn("no funds are accepted", lowered)
-        self.assertIn("originally published by banantiy", lowered)
+        self.assertIn("maintained by bemjamin", lowered)
         self.assertIn("maintained by bemjamin", lowered)
         self.assertIn("bemjamin-site.vercel.app/#services", page)
         self.assertNotIn("request a $25 pack", lowered)

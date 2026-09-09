@@ -8,7 +8,7 @@ A public reference implementation of one bounded reliability investigation: repr
 
 ## Status
 
-This repository is **shipped public proof**, not an active checkout page. The former USD 25 Banantiy pilot is preserved in git history and identified in `offer.json` as historical. New scope requests have moved to Bemjamin's public catalog.
+This repository is **shipped public proof**, not an active checkout page. The former USD 25 reference pilot is preserved in git history and identified in `offer.json` as historical. New scope requests have moved to Bemjamin's public catalog.
 
 Payment is inactive. No funds should be sent: no wallet address is published, and protected Solana custody/recovery has not been established.
 
@@ -43,7 +43,7 @@ No credentials, wallet or recovery material, private incident data, customer dat
 
 ## Rebrand and attribution
 
-Banantiy originally published this evidence pack. Bemjamin now maintains it as a reference artifact for the broader fixed-scope catalog. Git history and original copyright notices are preserved; this change does not erase or transfer historical authorship.
+Bemjamin maintains this evidence pack as a reference artifact for the broader fixed-scope catalog. Git history and third-party attribution remain preserved.
 
 ## License
 
