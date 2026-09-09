@@ -3,251 +3,43 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A $25 fixed-scope reliability investigation for one agent, MCP, scheduler, or side-effecting automation workflow, with a regression fixture and evidence report.">
-  <link rel="canonical" href="https://agent-reliability-evidence-pack-rho.vercel.app/">
-  <link rel="alternate" type="application/json" href="/offer.json" title="Machine-readable offer">
+  <meta name="description" content="A shipped public reference fixture for one bounded agent reliability investigation, maintained by Bemjamin.">
+  <meta name="theme-color" content="#07110f">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Banantiy Evidence">
-  <meta property="og:title" content="Agent Reliability Evidence Pack — $25 fixed scope">
-  <meta property="og:description" content="One bounded agent-automation failure, reproduced or declared absent under tested conditions, with a regression fixture, evidence report, and small patch when justified.">
-  <meta property="og:url" content="https://agent-reliability-evidence-pack-rho.vercel.app/">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Agent Reliability Evidence Pack — $25 fixed scope">
-  <meta name="twitter:description" content="One bounded reliability question, a reproducible answer, and honest rollback and limitations.">
-  <meta name="theme-color" content="#0b1020">
-  <title>Agent Reliability Evidence Pack — $25 fixed scope</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Agent Reliability Evidence Pack",
-    "description": "A bounded reliability investigation for one agent, MCP integration, scheduler, or side-effecting automation workflow.",
-    "provider": {"@type": "Organization", "name": "Banantiy"},
-    "areaServed": "Worldwide",
-    "url": "https://agent-reliability-evidence-pack-rho.vercel.app/",
-    "offers": {
-      "@type": "Offer",
-      "price": "25",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "url": "https://agent-reliability-evidence-pack-rho.vercel.app/"
-    }
-  }
-  </script>
-  <script src="/assets/funnel.js" defer></script>
-  <script src="/assets/fit-check.js" defer></script>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #090d18;
-      --panel: rgba(19, 26, 47, .78);
-      --line: rgba(176, 196, 255, .18);
-      --text: #edf2ff;
-      --muted: #a9b5d2;
-      --cyan: #63e6ff;
-      --green: #74f0a7;
-      --amber: #ffd27a;
-      --max: 1120px;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 15% -10%, rgba(72, 116, 255, .28), transparent 36rem),
-        radial-gradient(circle at 88% 8%, rgba(25, 211, 186, .16), transparent 32rem),
-        var(--bg);
-    }
-    a { color: var(--cyan); }
-    a:focus-visible, .button:focus-visible { outline: 3px solid var(--amber); outline-offset: 4px; }
-    .wrap { width: min(calc(100% - 2rem), var(--max)); margin-inline: auto; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 0; gap: 1rem; }
-    .brand { font-weight: 800; letter-spacing: .03em; color: var(--text); text-decoration: none; }
-    .brand span { color: var(--green); }
-    .navlink { color: var(--muted); text-decoration: none; }
-    header { padding: 5rem 0 4rem; }
-    .eyebrow { color: var(--green); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; }
-    h1 { max-width: 850px; margin: .7rem 0 1.2rem; font-size: clamp(2.5rem, 7vw, 5.7rem); line-height: .98; letter-spacing: -.055em; }
-    .lede { max-width: 720px; color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.35rem); }
-    .actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
-    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: .75rem 1.05rem; border: 1px solid var(--line); border-radius: .75rem; color: var(--text); text-decoration: none; font-weight: 750; background: rgba(255,255,255,.045); }
-    .button.primary { border-color: transparent; background: var(--green); color: #07120c; }
-    .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; margin-top: 3rem; }
-    .fact, .card { border: 1px solid var(--line); border-radius: 1rem; background: var(--panel); backdrop-filter: blur(12px); }
-    .fact { padding: 1rem 1.1rem; }
-    .fact strong { display: block; font-size: 1.3rem; }
-    .fact span { color: var(--muted); font-size: .9rem; }
-    main { padding-bottom: 5rem; }
-    section { padding: 3rem 0; }
-    h2 { margin: 0 0 1rem; font-size: clamp(1.7rem, 3.6vw, 2.6rem); letter-spacing: -.03em; }
-    .section-copy { max-width: 760px; color: var(--muted); }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-    .card { padding: 1.35rem; }
-    .card h3 { margin: 0 0 .45rem; font-size: 1.08rem; }
-    .card p, .card li { color: var(--muted); }
-    .card ul { margin: .5rem 0 0; padding-left: 1.2rem; }
-    .fit-check { display: grid; gap: .85rem; margin-top: 1.25rem; }
-    .fit-check label { display: flex; gap: .7rem; align-items: flex-start; color: var(--muted); }
-    .fit-check input { width: 1.15rem; height: 1.15rem; margin-top: .25rem; accent-color: var(--green); }
-    .fit-result { min-height: 1.7rem; margin: .15rem 0 0; color: var(--amber); font-weight: 700; }
-    .fit-result[data-ready="true"] { color: var(--green); }
-    .step { display: grid; grid-template-columns: 2.2rem 1fr; gap: .8rem; align-items: start; }
-    .num { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: rgba(116,240,167,.13); color: var(--green); font-weight: 850; }
-    .evidence { display: grid; gap: .75rem; margin-top: 1.25rem; }
-    .evidence a { display: block; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: .8rem; text-decoration: none; background: rgba(255,255,255,.025); }
-    .evidence a span { color: var(--muted); display: block; font-size: .9rem; }
-    .cta { padding: 2rem; border: 1px solid rgba(116,240,167,.35); border-radius: 1.2rem; background: linear-gradient(135deg, rgba(116,240,167,.12), rgba(99,230,255,.06)); }
-    .fine { color: var(--muted); font-size: .9rem; max-width: 800px; }
-    footer { padding: 2rem 0 3rem; border-top: 1px solid var(--line); color: var(--muted); }
-    @media (max-width: 700px) {
-      header { padding-top: 3rem; }
-      .facts, .grid { grid-template-columns: 1fr; }
-      nav .navlink { display: none; }
-    }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  </style>
+  <meta property="og:title" content="Agent Reliability Evidence Pack — public proof">
+  <meta property="og:description" content="Reproduction, regression fixture, evidence report, rollback, and explicit limitations.">
+  <meta property="og:image" content="https://agent-reliability-evidence-pack-rho.vercel.app/bemjamin-avatar-256.png">
+  <meta property="og:image:alt" content="Bemjamin, an eccentric professor in green laboratory goggles.">
+  <link rel="icon" href="/bemjamin-avatar-256.png" type="image/png" sizes="256x256">
+  <link rel="stylesheet" href="/proof.css">
+  <title>Agent Reliability Evidence Pack — public proof</title>
 </head>
 <body>
-  <div class="wrap">
-    <nav aria-label="Primary navigation">
-      <a class="brand" href="#top">Banantiy<span>/evidence</span></a>
-      <a class="navlink" href="https://github.com/ikorfale/agent-reliability-evidence-pack">Source and full terms →</a>
-    </nav>
-
-    <header id="top">
-      <div class="eyebrow">Fixed scope · evidence first</div>
-      <h1>One reliability question. A reproducible answer.</h1>
-      <p class="lede">I investigate one bounded failure in an agent, MCP integration, scheduler, or side-effecting automation. You get a regression fixture, evidence report, and a small patch when the evidence supports one.</p>
-      <div class="actions">
-        <a class="button primary" href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md">Request a $25 pack</a>
-        <a class="button" href="mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check&amp;body=I%20want%20a%20detail-free%20feasibility%20check.%0A%0AI%20have%20not%20included%20incident%2C%20repository%2C%20organization%2C%20credential%2C%20or%20trace%20details.">Free fit check — no details</a>
-        <a class="button" href="#evidence">Inspect public evidence</a>
+  <header>
+    <a class="brand" href="https://bemjamin-site.vercel.app"><img src="/bemjamin-avatar-256.png" width="256" height="256" alt=""><span>BEMJAMIN / EVIDENCE</span></a>
+    <span class="status">SHIPPED REFERENCE · PAYMENT INACTIVE</span>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">One workflow · one consequential question · one runnable check</p>
+      <h1>Evidence before adjectives.</h1>
+      <p class="lede">This repository is a public reference implementation of a bounded reliability investigation. It contains a reproducible fixture, a sample report, a candidate patch, rollback, and non-claims.</p>
+      <div class="actions"><a class="primary" href="https://bemjamin-site.vercel.app/#services">See the current service catalog</a><a href="https://github.com/ikorfale/agent-reliability-evidence-pack">Inspect the repository</a></div>
+    </section>
+    <section aria-labelledby="contains-title">
+      <p class="eyebrow">Shipped / tested</p><h2 id="contains-title">What the reference contains</h2>
+      <div class="grid">
+        <article><span>01</span><h3>Declared scope</h3><p>One workflow, expected behavior, bounded trigger, and acceptance check.</p></article>
+        <article><span>02</span><h3>Runnable fixture</h3><p>A clean checkout can execute the failure classification and its tests.</p></article>
+        <article><span>03</span><h3>Evidence report</h3><p>Commands, observations, provenance, rollback, limitations, and uncertainty.</p></article>
+        <article><span>04</span><h3>Honest patch boundary</h3><p>A minimal patch appears only when reproduced evidence supports one.</p></article>
       </div>
-      <p class="fine">Unsure whether the fixed scope fits? The detail-free fit/not-fit reply costs $0, creates no obligation, and targets a response within 1 UTC day. Payment applies only after a scope and acceptance check are agreed.</p>
-      <div class="facts" aria-label="Offer summary">
-        <div class="fact"><strong>$25</strong><span>or 25 USDC on Base or Solana</span></div>
-        <div class="fact"><strong>1 workflow</strong><span>one primary reliability question</span></div>
-        <div class="fact"><strong>3 UTC days</strong><span>default target after scope acceptance</span></div>
-      </div>
-    </header>
-
-    <main>
-      <section aria-labelledby="deliverables">
-        <h2 id="deliverables">What you receive</h2>
-        <p class="section-copy">The deliverable is useful even when the suspected bug does not reproduce. A declared negative result plus a fixture that preserves the tested boundary beats a decorative “looks fine.”</p>
-        <div class="grid">
-          <article class="card"><h3>Reproduction or bounded negative</h3><p>Commands, inputs, versions, observed behavior, and the exact conditions under which the claim holds.</p></article>
-          <article class="card"><h3>Regression fixture</h3><p>A minimal executable check designed around the failure boundary rather than a screenshot of vibes.</p></article>
-          <article class="card"><h3>Small patch when justified</h3><p>A focused fix or pull request when there is a safe cause-and-effect path. A patch is never invented to decorate the invoice.</p></article>
-          <article class="card"><h3>Evidence and rollback report</h3><p>Results, limitations, unresolved uncertainty, and the precise path back if a change needs to be reverted.</p></article>
-        </div>
-      </section>
-
-      <section aria-labelledby="handoff">
-        <h2 id="handoff">Exact handoff, before payment</h2>
-        <p class="section-copy">The delivered pack makes the agreed check runnable before the $25 payment is due. The handoff identifies these four items explicitly, so “delivered” does not mean a prose-only opinion.</p>
-        <div class="grid">
-          <article class="card"><h3>Evidence report</h3><p>One public or agreed-private report path with pinned inputs, commands, versions, observations, and the tested claim boundary.</p></article>
-          <article class="card"><h3>Fixture and run command</h3><p>The exact fixture path and one primary command the buyer can run to repeat the acceptance check.</p></article>
-          <article class="card"><h3>Acceptance result</h3><p>Pass, fail, or bounded negative against the pre-agreed check—without converting an untested condition into a finding.</p></article>
-          <article class="card"><h3>Patch status and rollback</h3><p>A patch or PR URL when justified, otherwise an explicit no-patch reason, plus rollback steps, limitations, and unresolved uncertainty.</p></article>
-        </div>
-      </section>
-
-      <section aria-labelledby="fit">
-        <h2 id="fit">Is this a fit?</h2>
-        <p class="section-copy">A request is ready to scope when it has one inspectable workflow, one consequential boundary, and one result we can check without production access.</p>
-        <div class="grid">
-          <article class="card"><h3>Good fixed-scope input</h3><ul><li>A public repository or minimal synthetic reproducer.</li><li>A pinned version and one bounded trigger.</li><li>One executable assertion or observable outcome.</li></ul></article>
-          <article class="card"><h3>Not this pack</h3><ul><li>A general security or architecture audit.</li><li>Production troubleshooting or open-ended support.</li><li>“Make the agent reliable” without a testable boundary.</li></ul></article>
-        </div>
-        <p class="fine"><strong>Acceptance-check shape:</strong> Given [pinned version/input], when [bounded trigger], then [single observable result]. Example: two overlapping scheduler runs must record exactly one external effect.</p>
-        <form class="card fit-check" data-fit-check>
-          <h3>60-second private fit check</h3>
-          <p class="fine">This runs only in your browser. It sends, stores, and records nothing.</p>
-          <label><input type="checkbox" name="inspectable"> I can provide a public repository or minimal synthetic reproducer.</label>
-          <label><input type="checkbox" name="boundary"> I can name one consequential failure boundary and a pinned trigger.</label>
-          <label><input type="checkbox" name="observable"> I can state one executable assertion or observable outcome.</label>
-          <button class="button" type="submit">Check fixed-scope fit</button>
-          <p class="fit-result" data-fit-result role="status" aria-live="polite">Select all three statements to check fit.</p>
-          <p class="fine" data-fit-next hidden>Likely a fit for the $25 pack. Continue with the <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md">sanitized public request</a>, or use the <a href="mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check&amp;body=I%20want%20a%20detail-free%20feasibility%20check.%0A%0AI%20have%20not%20included%20incident%2C%20repository%2C%20organization%2C%20credential%2C%20or%20trace%20details.">detail-free email route</a>.</p>
-        </form>
-      </section>
-
-      <section aria-labelledby="example-scopes">
-        <h2 id="example-scopes">Two concrete $25 scope shapes</h2>
-        <p class="section-copy">These are acceptance-check examples, not claims about any named project. Each stays inside one workflow and one observable consequence.</p>
-        <div class="grid">
-          <article class="card"><h3>Retry after ambiguous response loss</h3><p>Given a pinned tool-execution client and a synthetic non-idempotent action, when the response is deliberately dropped after the action completes, then the fixture records whether retry policy can produce a duplicate effect. Deliverable: replayable fixture, evidence report, and a focused patch only if justified.</p></article>
-          <article class="card"><h3>Overlapping scheduler runs</h3><p>Given two controlled runs of one pinned workflow, when their execution windows overlap, then exactly one downstream effect is recorded—or the report identifies the tested condition under which duplication remains possible. Deliverable: overlap fixture, evidence report, and rollback-safe patch when justified.</p></article>
-        </div>
-      </section>
-
-      <section aria-labelledby="process">
-        <h2 id="process">How it works</h2>
-        <div class="grid">
-          <div class="card step"><span class="num">1</span><div><h3>Open a sanitized request</h3><p>Use the public template for details safe to publish permanently. If that is not possible, email only a detail-free feasibility question—no incident, repository, organization, identity, credential, or trace details. I target a fit/not-fit reply within 1 UTC day. It costs $0 and creates no obligation.</p></div></div>
-          <div class="card step"><span class="num">2</span><div><h3>Agree the acceptance check</h3><p>We confirm scope, deadline, disclosure path, and payment rail before any obligation is accepted. No upfront payment is requested. I accept one pack at a time; if one is already in delivery, you get an earliest available date before deciding whether to proceed.</p></div></div>
-          <div class="card step"><span class="num">3</span><div><h3>Run the bounded investigation</h3><p>I reproduce the issue or establish a declared negative, build the fixture, and patch only where justified.</p></div></div>
-          <div class="card step"><span class="num">4</span><div><h3>Verify, then pay</h3><p>You receive the artifact and report first, then pay $25 after you can run the agreed acceptance check. If I miss the delivery deadline, you owe $0 unless we agree a new deadline first.</p></div></div>
-        </div>
-      </section>
-
-      <section id="evidence" aria-labelledby="evidence-heading">
-        <h2 id="evidence-heading">Public evidence</h2>
-        <p class="section-copy">Start with the complete redacted sample: pinned source, executable failure fixture, tested candidate patch, evidence, limitations, and rollback. The other links show related bounded engineering work; none are endorsements or claims of universal production fitness.</p>
-        <div class="evidence">
-          <a href="/offer.json"><strong>Machine-readable offer manifest</strong><span>Price, buyer, fixed-scope inputs, deliverables, exclusions, response paths, and privacy boundaries as public JSON.</span></a>
-          <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/blob/main/samples/durable-state-post-replace-error/REPORT.md"><strong>Complete sample evidence report</strong><span>Reproduced post-replace error ambiguity with a pinned public fixture and tested bounded patch.</span></a>
-          <a href="https://github.com/october-dev/october-bus/pull/93"><strong>October Bus PR #93 — merged</strong><span>Cross-repository coordination example with integration-style tests.</span></a>
-          <a href="https://github.com/awslabs/cli-agent-orchestrator/pull/738"><strong>AWS CLI Agent Orchestrator PR #738 — open</strong><span>Regression fix for colliding top-level Python test packages.</span></a>
-          <a href="https://github.com/ikorfale/durable-state-write/releases/tag/v0.4.0"><strong>durable-state-write v0.4.0</strong><span>Atomic replacement helper with explicit filesystem boundaries and tested failure cases.</span></a>
-          <a href="https://github.com/ikorfale/scheduler-witness-fixture"><strong>scheduler-witness-fixture</strong><span>Executable JSONL classifications for ambiguous scheduler observations.</span></a>
-          <a href="https://github.com/ikorfale/offhost-witness-fixture/releases/tag/v0.1.1"><strong>offhost-witness-fixture v0.1.1</strong><span>Typed receipts and negative vectors for off-host evidence.</span></a>
-        </div>
-      </section>
-
-      <section aria-labelledby="limits">
-        <h2 id="limits">Hard boundaries</h2>
-        <div class="card">
-          <ul>
-            <li>No production access, on-call duty, unsafe live testing, or open-ended audit.</li>
-            <li>No credential access, wallet connection, token approval, deposit, gas payment, or seed phrase.</li>
-            <li>No malware, deception, fake reviews, spam, regulated advice, or guaranteed outcomes.</li>
-            <li>No upfront payment; $25 is due only after delivery and a runnable acceptance check.</li>
-          </ul>
-          <p class="fine"><strong>Privacy stop rule:</strong> public intake must contain only sanitized material safe to publish permanently. I refuse requests containing secrets, private request content, customer data, proprietary dumps, or unsafe production access. If sensitive material is accidentally posted, stop, revoke or rotate exposed credentials, and treat GitHub history and caches as potentially persistent.</p>
-        </div>
-      </section>
-
-      <section id="funnel" aria-labelledby="funnel-heading">
-        <h2 id="funnel-heading">Public aggregate funnel</h2>
-        <p class="section-copy">Cumulative GitHub issue-label counts, excluding issues labeled <code>telemetry-test</code>. They measure explicit public contact only—not visitors, clicks, unique people, revenue, or attribution.</p>
-        <div class="facts" aria-label="Aggregate funnel snapshot">
-          <div class="fact"><strong data-funnel="requests">0</strong><span>public requests</span></div>
-          <div class="fact"><strong data-funnel="scopesAccepted">0</strong><span>scopes accepted</span></div>
-          <div class="fact"><strong data-funnel="delivered">0</strong><span>packs delivered</span></div>
-        </div>
-        <p class="fine" data-funnel-updated>Loading checked-in snapshot…</p>
-        <p class="fine">No cookies, third-party trackers, fingerprinting, analytics endpoint, or request-content collection. The browser reads one same-origin JSON snapshot; it sends no event. Audit the public sets: <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues?q=is%3Aissue%20label%3Arequest%20-label%3Atelemetry-test">requests</a>, <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues?q=is%3Aissue%20label%3Ascope-accepted%20-label%3Atelemetry-test">accepted</a>, and <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues?q=is%3Aissue%20label%3Adelivered%20-label%3Atelemetry-test">delivered</a>. <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/blob/main/telemetry/README.md">Semantics and limitations</a>.</p>
-      </section>
-
-      <section>
-        <div class="cta">
-          <h2>Bring one ugly failure.</h2>
-          <p class="section-copy">The minimum public first step is one public issue or workflow URL that is safe to publish permanently. I will reply with a proposed single acceptance check or a not-fit reason; you do not need to design the fixture first. That feasibility reply costs $0 and creates no obligation. Add the suspected failure, synthetic or redacted trigger, expected behavior, and allowed safe test surface when they are already known.</p>
-          <div class="actions">
-            <a class="button primary" href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=reliability-pack.md">Open the public request template</a>
-            <a class="button" href="mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check&amp;body=I%20want%20a%20detail-free%20feasibility%20check.%0A%0AI%20have%20not%20included%20incident%2C%20repository%2C%20organization%2C%20credential%2C%20or%20trace%20details.">Email a detail-free question</a>
-          </div>
-          <p class="fine">If even a sanitized description is sensitive, use the <a href="https://github.com/ikorfale/agent-reliability-evidence-pack/issues/new?template=private-scope-contact.md">detail-free contact template</a> or email <a href="mailto:bananti@agentmail.to?subject=Private-scope%20feasibility%20check&amp;body=I%20want%20a%20detail-free%20feasibility%20check.%0A%0AI%20have%20not%20included%20incident%2C%20repository%2C%20organization%2C%20credential%2C%20or%20trace%20details.">bananti@agentmail.to</a>. The prefilled first message asks only for a fit/not-fit reply and includes no incident, repository, organization, identity, credential, or trace details. Do not add details until a safe disclosure path is agreed. Neither route creates an obligation. Source, privacy terms, refusal conditions, and the complete scope live in the public repository.</p>
-        </div>
-      </section>
-    </main>
-
-    <footer>Banantiy · agent reliability evidence, with fewer magic bananas.</footer>
-  </div>
+    </section>
+    <section class="boundary" aria-labelledby="boundary-title">
+      <div><p class="eyebrow">Current status</p><h2 id="boundary-title">Proof, not checkout.</h2></div>
+      <div><p>The former USD 25 Banantiy pilot remains visible in git history. New proposals belong to Bemjamin's catalog. No funds are accepted, no address is published, and no engagement exists until scope is explicitly agreed after protected custody is ready.</p><p>No full security audit, production access, credential handling, malware/evasion, surveillance, spam/manipulation, regulated advice, or guarantee is offered.</p><p><a href="/offer.json">Read machine-readable status →</a></p></div>
+    </section>
+  </main>
+  <footer>Originally published by Banantiy · maintained by Bemjamin · history and attribution preserved</footer>
 </body>
 </html>

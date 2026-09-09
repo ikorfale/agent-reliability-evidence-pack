@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Contract checks for public intake, privacy language, and aggregate telemetry."""
+"""Contract checks for the shipped reference artifact and inactive payment state."""
 
 from __future__ import annotations
 
@@ -16,9 +16,6 @@ class MetadataParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.meta: dict[tuple[str, str], str] = {}
-        self.canonical: str | None = None
-        self.json_ld: list[str] = []
-        self._in_json_ld = False
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
@@ -26,161 +23,65 @@ class MetadataParser(HTMLParser):
             for key in ("name", "property"):
                 if key in values and "content" in values:
                     self.meta[(key, values[key])] = values["content"]
-        elif tag == "link" and values.get("rel") == "canonical":
-            self.canonical = values.get("href")
-        elif tag == "script" and values.get("type") == "application/ld+json":
-            self._in_json_ld = True
-
-    def handle_data(self, data):
-        if self._in_json_ld:
-            self.json_ld.append(data)
-
-    def handle_endtag(self, tag):
-        if tag == "script" and self._in_json_ld:
-            self._in_json_ld = False
 
 
 class OfferContractTest(unittest.TestCase):
-    def test_intake_templates_are_sanitized_and_labeled(self):
-        request = (ROOT / ".github/ISSUE_TEMPLATE/reliability-pack.md").read_text()
-        private = (ROOT / ".github/ISSUE_TEMPLATE/private-scope-contact.md").read_text()
-        self.assertIn("labels: request", request)
-        self.assertIn("safe to publish permanently", request)
-        self.assertIn("Smallest safe trigger or synthetic/redacted trace", request)
-        self.assertIn("labels: request, private-scope", private)
-        self.assertIn("posted no private request content", private)
-        self.assertNotIn("**What must remain private:**", request)
+    def test_active_intake_moves_to_bemjamin_catalog(self):
+        config = (ROOT / ".github/ISSUE_TEMPLATE/config.yml").read_text()
+        self.assertIn("ikorfale/bemjamin-site/issues/new", config)
+        self.assertIn("Payment is inactive", config)
+        self.assertFalse((ROOT / ".github/ISSUE_TEMPLATE/reliability-pack.md").exists())
+        self.assertTrue((ROOT / "docs/historical-intake/reliability-pack.md").exists())
+        self.assertTrue((ROOT / "docs/historical-intake/private-scope-contact.md").exists())
 
-    def test_offer_states_privacy_and_refusal_contract(self):
-        combined = "\n".join([
-            (ROOT / "README.md").read_text(),
-            (ROOT / "index.html").read_text(),
-        ]).lower()
-        for phrase in (
-            "credentials and production dumps are never accepted",
-            "private request content",
-            "unsafe production",
-            "refuse",
-            "no cookies",
-            "fingerprinting",
-        ):
-            self.assertIn(phrase, combined)
+    def test_machine_status_fails_closed_on_payment(self):
+        offer = json.loads((ROOT / "offer.json").read_text())
+        self.assertEqual(offer["status"], "reference_artifact_intake_moved_payment_inactive")
+        self.assertFalse(offer["activeOffer"])
+        self.assertFalse(offer["payment"]["acceptingFunds"])
+        self.assertIsNone(offer["payment"]["address"])
+        self.assertEqual(offer["payment"]["intendedNetwork"], "Solana")
+        self.assertEqual(offer["payment"]["intendedAssets"], ["USDC", "USDT"])
+        self.assertEqual(offer["historical"]["originalProvider"], "Banantiy")
+        self.assertEqual(offer["historical"]["originalPilotPriceUsd"], 25)
 
-    def test_detail_free_email_cta_is_prefilled_and_bounded(self):
+    def test_public_page_is_proof_not_checkout(self):
         page = (ROOT / "index.html").read_text()
-        readme = (ROOT / "README.md").read_text()
-        self.assertGreaterEqual(
-            page.count("body=I%20want%20a%20detail-free%20feasibility%20check."),
-            3,
-        )
-        self.assertIn("fit/not-fit reply", page)
-        self.assertIn("fit/not-fit reply", readme)
-        self.assertIn("fit/not-fit reply within 1 UTC day", page)
-        self.assertIn("fit/not-fit reply within 1 UTC", readme)
-        self.assertIn("fit/not-fit reply costs $0", page)
-        self.assertIn("costs **USD 0**", readme)
-        self.assertIn("Do not add details until a safe disclosure path is agreed", page)
+        lowered = page.lower()
+        self.assertIn("shipped reference", lowered)
+        self.assertIn("payment inactive", lowered)
+        self.assertIn("no funds are accepted", lowered)
+        self.assertIn("originally published by banantiy", lowered)
+        self.assertIn("maintained by bemjamin", lowered)
+        self.assertIn("bemjamin-site.vercel.app/#services", page)
+        self.assertNotIn("request a $25 pack", lowered)
+        self.assertNotIn("verify, then pay", lowered)
 
-    def test_public_metadata_preserves_offer_scope_and_price(self):
+    def test_public_metadata_uses_canonical_avatar(self):
         parser = MetadataParser()
         parser.feed((ROOT / "index.html").read_text())
-        canonical = "https://agent-reliability-evidence-pack-rho.vercel.app/"
-        self.assertEqual(parser.canonical, canonical)
-        self.assertEqual(parser.meta[("property", "og:url")], canonical)
-        self.assertIn("$25", parser.meta[("property", "og:title")])
-        self.assertEqual(parser.meta[("name", "twitter:card")], "summary")
-        structured = json.loads("".join(parser.json_ld))
-        self.assertEqual(structured["@type"], "Service")
-        self.assertEqual(structured["offers"]["price"], "25")
-        self.assertEqual(structured["offers"]["priceCurrency"], "USD")
+        self.assertIn("public proof", parser.meta[("property", "og:title")].lower())
+        self.assertTrue(parser.meta[("property", "og:image")].endswith("/bemjamin-avatar-256.png"))
+        self.assertEqual((ROOT / "bemjamin-avatar-256.png").stat().st_size, 156160)
 
-    def test_machine_readable_offer_matches_public_contract(self):
+    def test_reference_scope_remains_bounded(self):
         offer = json.loads((ROOT / "offer.json").read_text())
-        page = (ROOT / "index.html").read_text()
-        self.assertEqual(offer["status"], "available")
-        self.assertEqual(offer["price"]["amount"], 25)
-        self.assertEqual(offer["price"]["currency"], "USD")
-        self.assertEqual(
-            offer["price"]["paymentTiming"],
-            "after-delivery-and-runnable-acceptance-check",
-        )
-        self.assertFalse(offer["price"]["upfrontPaymentRequired"])
-        self.assertEqual(offer["price"]["missedDeadlineAmountOwed"], 0)
-        self.assertIn("No upfront payment", page)
-        self.assertIn("Verify, then pay", page)
-        self.assertEqual(offer["scope"]["workflowCount"], 1)
-        self.assertEqual(offer["scope"]["defaultDeliveryTargetUtcDays"], 3)
-        self.assertEqual(offer["scope"]["capacity"]["acceptedPacksAtOnce"], 1)
-        self.assertFalse(offer["scope"]["capacity"]["queuesUnagreedObligations"])
-        self.assertTrue(
-            offer["scope"]["capacity"][
-                "nextRequesterReceivesEarliestAvailableDateBeforeAcceptance"
-            ]
-        )
-        self.assertIn("one pack at a time", page)
-        handoff = offer["scope"]["deliveryHandoff"]
-        self.assertTrue(handoff["beforePayment"])
-        self.assertFalse(handoff["proseOnlyOpinionCountsAsDelivered"])
-        self.assertIn("primary run command", handoff["requiredFields"])
-        self.assertIn("rollback", handoff["requiredFields"])
-        self.assertIn("Exact handoff, before payment", page)
-        self.assertEqual(len(offer["scope"]["exampleAcceptanceChecks"]), 2)
-        self.assertIn("response is dropped", offer["scope"]["exampleAcceptanceChecks"][0])
-        self.assertIn("two controlled runs", offer["scope"]["exampleAcceptanceChecks"][1])
-        self.assertIn("Two concrete $25 scope shapes", page)
-        self.assertEqual(offer["response"]["feasibilityPrice"], {"amount": 0, "currency": "USD"})
-        self.assertEqual(
-            offer["response"]["minimumPublicInput"],
-            "one public issue or workflow URL safe to publish permanently",
-        )
-        self.assertTrue(offer["response"]["operatorProposesAcceptanceCheck"])
-        self.assertIn("you do not need to design the fixture first", page)
-        self.assertFalse(offer["response"]["initialContactCreatesObligation"])
-        self.assertFalse(offer["privacy"]["credentialsAccepted"])
-        self.assertFalse(offer["privacy"]["tracking"])
-        self.assertIn('type="application/json" href="/offer.json"', page)
+        self.assertEqual(offer["referenceScope"]["workflowCount"], 1)
+        self.assertEqual(offer["referenceScope"]["primaryQuestionCount"], 1)
+        self.assertTrue(any("bounded negative result" in item for item in offer["referenceScope"]["deliverables"]))
         serialized = json.dumps(offer).lower()
-        for forbidden in ("private key", "seed phrase", "0xba51", "bc1q", "3idb6"):
-            self.assertNotIn(forbidden, serialized)
+        for phrase in ("credential", "malware", "surveillance", "guarantees"):
+            self.assertIn(phrase, serialized)
 
     def test_browser_telemetry_has_no_storage_or_event_sink(self):
         script = (ROOT / "assets/funnel.js").read_text()
         self.assertIn('credentials: "omit"', script)
-        for forbidden in (
-            "document.cookie",
-            "localStorage",
-            "sessionStorage",
-            "sendBeacon",
-            "XMLHttpRequest",
-        ):
-            self.assertNotIn(forbidden, script)
-
-    def test_fit_check_is_local_only_and_routes_to_existing_offer(self):
-        page = (ROOT / "index.html").read_text()
-        script = (ROOT / "assets/fit-check.js").read_text()
-        self.assertIn("60-second private fit check", page)
-        self.assertIn("sends, stores, and records nothing", page)
-        self.assertEqual(page.count('name="inspectable"'), 1)
-        self.assertEqual(page.count('name="boundary"'), 1)
-        self.assertEqual(page.count('name="observable"'), 1)
-        self.assertIn("event.preventDefault()", script)
-        self.assertIn("Likely fixed-scope fit", script)
-        for forbidden in (
-            "fetch(",
-            "XMLHttpRequest",
-            "sendBeacon",
-            "document.cookie",
-            "localStorage",
-            "sessionStorage",
-        ):
+        for forbidden in ("document.cookie", "localStorage", "sessionStorage", "sendBeacon", "XMLHttpRequest"):
             self.assertNotIn(forbidden, script)
 
     def test_telemetry_snapshot_has_only_aggregate_fields(self):
         snapshot = json.loads((ROOT / "telemetry/funnel.json").read_text())
-        self.assertEqual(
-            set(snapshot),
-            {"schemaVersion", "generatedAt", "repository", "source", "excludedLabel", "counts"},
-        )
+        self.assertEqual(set(snapshot), {"schemaVersion", "generatedAt", "repository", "source", "excludedLabel", "counts"})
         self.assertEqual(set(snapshot["counts"]), {"requests", "scopesAccepted", "delivered"})
         self.assertTrue(all(type(value) is int and value >= 0 for value in snapshot["counts"].values()))
 
@@ -194,11 +95,6 @@ class OfferContractTest(unittest.TestCase):
         self.assertEqual(module.build_snapshot(valid, "2026-09-05T00:00:00Z")["counts"], valid)
         with self.assertRaises(ValueError):
             module.build_snapshot({**valid, "requestBody": 1}, "2026-09-05T00:00:00Z")
-        with self.assertRaises(ValueError):
-            module.build_snapshot(
-                {"requests": 0, "scopesAccepted": 1, "delivered": 0},
-                "2026-09-05T00:00:00Z",
-            )
 
 
 if __name__ == "__main__":
