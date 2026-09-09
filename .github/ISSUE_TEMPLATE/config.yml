@@ -2,4 +2,4 @@ blank_issues_enabled: false
 contact_links:
   - name: Bemjamin fixed-scope service request
     url: https://github.com/ikorfale/bemjamin-site/issues/new?template=service-request.yml
-    about: Use the current public intake. Payment is inactive; never post secrets or private incident data.
+    about: Use the current public intake. Payment is available only after written scope and price confirmation; never post secrets or private incident data.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Contract checks for the shipped reference artifact and inactive payment state."""
+"""Contract checks for the shipped reference artifact and explicit payment state."""
 
 from __future__ import annotations
 
@@ -29,19 +29,20 @@ class OfferContractTest(unittest.TestCase):
     def test_active_intake_moves_to_bemjamin_catalog(self):
         config = (ROOT / ".github/ISSUE_TEMPLATE/config.yml").read_text()
         self.assertIn("ikorfale/bemjamin-site/issues/new", config)
-        self.assertIn("Payment is inactive", config)
+        self.assertIn("Payment is available", config)
         self.assertFalse((ROOT / ".github/ISSUE_TEMPLATE/reliability-pack.md").exists())
         self.assertTrue((ROOT / "docs/historical-intake/reliability-pack.md").exists())
         self.assertTrue((ROOT / "docs/historical-intake/private-scope-contact.md").exists())
 
-    def test_machine_status_fails_closed_on_payment(self):
+    def test_machine_status_has_explicit_payment_contract(self):
         offer = json.loads((ROOT / "offer.json").read_text())
-        self.assertEqual(offer["status"], "reference_artifact_intake_moved_payment_inactive")
+        self.assertEqual(offer["status"], "reference_artifact_intake_moved_payment_available_after_written_agreement")
         self.assertFalse(offer["activeOffer"])
-        self.assertFalse(offer["payment"]["acceptingFunds"])
-        self.assertIsNone(offer["payment"]["address"])
-        self.assertEqual(offer["payment"]["intendedNetwork"], "Solana")
-        self.assertEqual(offer["payment"]["intendedAssets"], ["USDC", "USDT"])
+        self.assertTrue(offer["payment"]["acceptingFunds"])
+        self.assertEqual(offer["payment"]["address"], "6EGnm1Gw1KTKVPVvTkyazyTAboKDMaVMx7bG1kLMULq5")
+        self.assertEqual(offer["payment"]["network"], "Solana")
+        self.assertTrue(offer["payment"]["networkOnly"])
+        self.assertEqual(offer["payment"]["acceptedAssets"], ["USDC", "USDT"])
         self.assertEqual(offer["historical"]["originalProvider"], "Bemjamin")
         self.assertEqual(offer["historical"]["originalPilotPriceUsd"], 25)
 
@@ -49,8 +50,8 @@ class OfferContractTest(unittest.TestCase):
         page = (ROOT / "index.html").read_text()
         lowered = page.lower()
         self.assertIn("shipped reference", lowered)
-        self.assertIn("payment inactive", lowered)
-        self.assertIn("no funds are accepted", lowered)
+        self.assertIn("solana payment after written agreement", lowered)
+        self.assertIn("6egnm1gw1ktkvpvvtkyazytabokdmavmx7bg1klmulq5", lowered)
         self.assertIn("maintained by bemjamin", lowered)
         self.assertIn("maintained by bemjamin", lowered)
         self.assertIn("bemjamin-site.vercel.app/#services", page)

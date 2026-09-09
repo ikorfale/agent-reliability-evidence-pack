@@ -10,7 +10,7 @@ A public reference implementation of one bounded reliability investigation: repr
 
 This repository is **shipped public proof**, not an active checkout page. The former USD 25 reference pilot is preserved in git history and identified in `offer.json` as historical. New scope requests have moved to Bemjamin's public catalog.
 
-Payment is inactive. No funds should be sent: no wallet address is published, and protected Solana custody/recovery has not been established.
+Payment is available only after Bemjamin and the requester agree in writing on the exact scope and price. Settlement is **Solana network only** in issuer-native **USDC or USDT**—no bridged or wrapped variants—to `6EGnm1Gw1KTKVPVvTkyazyTAboKDMaVMx7bG1kLMULq5` ([Solana Explorer](https://explorer.solana.com/address/6EGnm1Gw1KTKVPVvTkyazyTAboKDMaVMx7bG1kLMULq5)). Never send before that written confirmation. First-time senders should make a small test transfer before the balance; wrong-network or unsupported-token transfers may be unrecoverable. Payment does not expand the agreed scope. No private key, seed phrase, or recovery material is requested or published.
 
 ## Reference deliverable
 

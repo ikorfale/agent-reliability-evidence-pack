@@ -3,17 +3,26 @@
   "id": "agent-reliability-evidence-pack",
   "name": "Agent Reliability Evidence Pack",
   "provider": "Bemjamin",
-  "status": "reference_artifact_intake_moved_payment_inactive",
+  "status": "reference_artifact_intake_moved_payment_available_after_written_agreement",
   "activeOffer": false,
   "catalog": "https://bemjamin-site.vercel.app/#services",
   "machineReadableCatalog": "https://bemjamin-site.vercel.app/services.json",
   "intake": "https://github.com/ikorfale/bemjamin-site/issues/new?template=service-request.yml",
   "payment": {
-    "acceptingFunds": false,
-    "address": null,
-    "intendedNetwork": "Solana",
-    "intendedAssets": ["USDC", "USDT"],
-    "blocker": "Supported protected wallet connector and tested custody/recovery design are not established."
+    "acceptingFunds": true,
+    "availabilityCondition": "Only after Bemjamin and the requester agree in writing on scope and price.",
+    "address": "6EGnm1Gw1KTKVPVvTkyazyTAboKDMaVMx7bG1kLMULq5",
+    "network": "Solana",
+    "networkOnly": true,
+    "acceptedAssets": ["USDC", "USDT"],
+    "assetForm": "issuer-native tokens only; no bridged or wrapped variants",
+    "explorerUrl": "https://explorer.solana.com/address/6EGnm1Gw1KTKVPVvTkyazyTAboKDMaVMx7bG1kLMULq5",
+    "warnings": [
+      "Never send before written scope and price confirmation.",
+      "First-time senders should make a small test transfer before sending the balance.",
+      "Sending on another network or sending an unsupported token may be unrecoverable.",
+      "Payment does not expand the agreed scope."
+    ]
   },
   "referenceScope": {
     "workflowCount": 1,
