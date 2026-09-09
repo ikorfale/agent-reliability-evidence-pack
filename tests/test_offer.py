@@ -5,11 +5,14 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
+ADDRESS = "6EGnm1Gw1KTKVPVvTkyazyTAboKDMaVMx7bG1kLMULq5"
+EXPLORER = f"https://explorer.solana.com/address/{ADDRESS}"
 
 
 class MetadataParser(HTMLParser):
@@ -39,12 +42,50 @@ class OfferContractTest(unittest.TestCase):
         self.assertEqual(offer["status"], "reference_artifact_intake_moved_payment_available_after_written_agreement")
         self.assertFalse(offer["activeOffer"])
         self.assertTrue(offer["payment"]["acceptingFunds"])
-        self.assertEqual(offer["payment"]["address"], "6EGnm1Gw1KTKVPVvTkyazyTAboKDMaVMx7bG1kLMULq5")
+        self.assertEqual(offer["payment"]["address"], ADDRESS)
         self.assertEqual(offer["payment"]["network"], "Solana")
         self.assertTrue(offer["payment"]["networkOnly"])
         self.assertEqual(offer["payment"]["acceptedAssets"], ["USDC", "USDT"])
+        self.assertEqual(offer["payment"]["explorerUrl"], EXPLORER)
+        self.assertIn("written", offer["payment"]["availabilityCondition"].lower())
+        self.assertEqual(len(offer["payment"]["warnings"]), 4)
         self.assertEqual(offer["historical"]["originalProvider"], "Bemjamin")
         self.assertEqual(offer["historical"]["originalPilotPriceUsd"], 25)
+
+    def test_payment_copy_is_consistent_and_has_no_stale_inactive_state(self):
+        surfaces = {
+            path: (ROOT / path).read_text()
+            for path in ("README.md", "index.html", "offer.json")
+        }
+        stale = re.compile(
+            r"payment (?:is )?inactive|not accepting funds|no funds (?:are )?accepted|"
+            r"no wallet address|no address is published|\"address\"\s*:\s*null|"
+            r"\"acceptingFunds\"\s*:\s*false",
+            re.IGNORECASE,
+        )
+        for path, content in surfaces.items():
+            self.assertIn(ADDRESS, content, path)
+            self.assertIn("Solana", content, path)
+            self.assertIn("USDC", content, path)
+            self.assertIn("USDT", content, path)
+            self.assertIsNone(stale.search(content), path)
+        page = surfaces["index.html"]
+        for phrase in (
+            "Never send before",
+            "small test transfer",
+            "another network",
+            "unsupported token",
+            "Payment does not expand the agreed scope",
+        ):
+            self.assertIn(phrase, page)
+        self.assertIn(EXPLORER, page)
+
+        alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+        value = 0
+        for character in ADDRESS:
+            value = value * 58 + alphabet.index(character)
+        decoded_length = (value.bit_length() + 7) // 8 + len(ADDRESS) - len(ADDRESS.lstrip("1"))
+        self.assertEqual(decoded_length, 32)
 
     def test_public_page_is_proof_not_checkout(self):
         page = (ROOT / "index.html").read_text()
@@ -52,7 +93,6 @@ class OfferContractTest(unittest.TestCase):
         self.assertIn("shipped reference", lowered)
         self.assertIn("solana payment after written agreement", lowered)
         self.assertIn("6egnm1gw1ktkvpvvtkyazytabokdmavmx7bg1klmulq5", lowered)
-        self.assertIn("maintained by bemjamin", lowered)
         self.assertIn("maintained by bemjamin", lowered)
         self.assertIn("bemjamin-site.vercel.app/#services", page)
         self.assertNotIn("request a $25 pack", lowered)

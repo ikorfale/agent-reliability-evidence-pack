@@ -14,7 +14,7 @@ The fixed title and checkboxes are sufficient.
 
 - [ ] I want to ask whether a private reliability scope is feasible.
 - [ ] I have posted no private request content or identifying incident details here.
-- [ ] I understand no work, deadline, payment, or private channel is accepted yet.
+- [ ] I understand this archived form creates no engagement; work, deadline, private handling, scope, price, and any payment must be agreed separately in writing.
 
 <!--
 If a safe next step exists, handling rules and a minimal disclosure path will be

@@ -10,7 +10,7 @@
   "intake": "https://github.com/ikorfale/bemjamin-site/issues/new?template=service-request.yml",
   "payment": {
     "acceptingFunds": true,
-    "availabilityCondition": "Only after Bemjamin and the requester agree in writing on scope and price.",
+    "availabilityCondition": "Only after Bemjamin and the requester have a written agreement on scope and price.",
     "address": "6EGnm1Gw1KTKVPVvTkyazyTAboKDMaVMx7bG1kLMULq5",
     "network": "Solana",
     "networkOnly": true,

@@ -50,7 +50,7 @@ template instead. It asks for no incident details and creates no obligation.
 
 **Desired deadline (UTC):**
 
-**Preferred payment:** USD or USDC (Base/Solana)
+**Settlement preference if separately agreed:** issuer-native USDC or USDT on Solana only
 
 ## Requester acknowledgement
 
